@@ -1,13 +1,7 @@
 <ion-content>
-	<h2 class="my-5">Historie úkolů:</h2>
+	<h2 class="my-5">Historie úkolů</h2>
 
 	@if (notifications.length > 0) {
-		@if (isAdmin) {
-			<ion-checkbox slot="start" color="secondary" [(ngModel)]="showTestNotifications" labelPlacement="end"
-				>Zobrazit testovací notifikace</ion-checkbox
-			>
-		}
-
 		<div class="box">
 			<ion-list>
 				@for (notification of notifications; track notification.id) {

@@ -12,8 +12,6 @@ import { SDK } from "src/sdk";
 export class HistoryComponent {
 	notifications: SDK.ListNotificationsResponseDto[] = [];
 
-	isAdmin = !!this.localStorage.get("admin");
-
 	showTestNotifications = false;
 
 	constructor(
