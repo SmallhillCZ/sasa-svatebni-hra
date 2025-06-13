@@ -87,6 +87,7 @@ export class NotificationsService {
 				) {
 					this.logger.warn(`Subscription ${subscription.id} is no longer valid. Removing it.`);
 					await this.database.removeSubscription(subscription.id).catch(() => {});
+					console.error(error);
 				} else {
 					this.logger.error("Failed to send notification", error);
 					console.error(error);
