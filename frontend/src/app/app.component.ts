@@ -71,27 +71,27 @@ export class AppComponent {
 
 	private async checkUpdate() {
 		const updateAvailable = await this.swUpdate.checkForUpdate();
-		if (updateAvailable) this.showUpdateAlert();
+		if (updateAvailable) document.location.reload();
 	}
 
-	private async showUpdateAlert() {
-		const alert = await this.alertController.create({
-			header: "Nová verze",
-			message: "Je k dispozici nová verze.",
-			buttons: [
-				{
-					text: "Aktualizovat",
-					handler: () => {
-						document.location.reload();
-					},
-				},
-				{
-					text: "Zrušit",
-					role: "cancel",
-				},
-			],
-		});
+	// private async showUpdateAlert() {
+	// 	const alert = await this.alertController.create({
+	// 		header: "Nová verze",
+	// 		message: "Je k dispozici nová verze.",
+	// 		buttons: [
+	// 			{
+	// 				text: "Aktualizovat",
+	// 				handler: () => {
+	// 					document.location.reload();
+	// 				},
+	// 			},
+	// 			{
+	// 				text: "Zrušit",
+	// 				role: "cancel",
+	// 			},
+	// 		],
+	// 	});
 
-		await alert.present();
-	}
+	// 	await alert.present();
+	// }
 }
