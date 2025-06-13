@@ -41,8 +41,8 @@ if (!process.env.VAPID_PRIVATE_KEY) throw new Error("VAPID_PRIVATE_KEY must be s
 if (!(process.env.VAPID_SUBJECT || app.baseUrl)) throw new Error("VAPID_SUBJECT must be set in the environment");
 
 const notifications = {
-	icon: `${app.baseUrl}/favicon.png`,
-	badge: `${app.baseUrl}/badge.png`,
+	icon: `${app.baseUrl}/favicon.webp`,
+	badge: `${app.baseUrl}/favicon.webp`,
 	vapid: {
 		publicKey: process.env.VAPID_PUBLIC_KEY,
 		privateKey: process.env.VAPID_PRIVATE_KEY,
