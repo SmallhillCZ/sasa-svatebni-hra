@@ -1,15 +1,15 @@
-import { Component, OnInit } from "@angular/core";
+import { Component } from "@angular/core";
 import { LocalStorageService } from "src/app/services/local-storage.service";
 import { SDK } from "src/sdk";
 
 @Component({
-	selector: "app-notifications",
+	selector: "app-history",
 	standalone: false,
 
-	templateUrl: "./notifications.component.html",
-	styleUrl: "./notifications.component.scss",
+	templateUrl: "./history.component.html",
+	styleUrl: "./history.component.scss",
 })
-export class NotificationsComponent implements OnInit {
+export class HistoryComponent {
 	notifications: SDK.ListNotificationsResponseDto[] = [];
 
 	isAdmin = !!this.localStorage.get("admin");
@@ -27,7 +27,7 @@ export class NotificationsComponent implements OnInit {
 
 	async loadNotifications() {
 		this.notifications = await this.sdk.NotificationsApi.listNotifications({
-			includeTest: this.isAdmin,
+			// includeTest: this.isAdmin,
 		}).then((res) => res.data);
 
 		this.notifications.sort((a, b) => {

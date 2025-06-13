@@ -4,6 +4,7 @@ import {
 	ListNotificationsQueryDto,
 	ListNotificationsResponseDto,
 	SendNotificationBodyDto,
+	SendTestNotificationBodyDto,
 } from "src/dto/notifications.dto";
 import { DatabaseService } from "src/services/database.service";
 import { NotificationsService } from "src/services/notifications.service";
@@ -28,7 +29,7 @@ export class NotificationsController {
 	@BasicAuth()
 	@Post()
 	async sendNotification(@Body() body: SendNotificationBodyDto /*@UploadedFile() file: Express.Multer.File*/) {
-		await this.notificationsService.sendNotification(
+		await this.notificationsService.sendNotificationToAll(
 			{
 				message: body.message,
 				buttonTitle: body.buttonTitle,
@@ -38,5 +39,10 @@ export class NotificationsController {
 				test: body.test === "true",
 			},
 		);
+	}
+
+	@Post("test")
+	async sendTestNotification(@Body() body: SendTestNotificationBodyDto) {
+		await this.notificationsService.sendNotificationTo(body.subscription, body.message);
 	}
 }

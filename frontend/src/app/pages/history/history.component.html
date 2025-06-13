@@ -1,0 +1,30 @@
+<ion-content>
+	<h2 class="my-5">Historie úkolů:</h2>
+
+	@if (notifications.length > 0) {
+		@if (isAdmin) {
+			<ion-checkbox slot="start" color="secondary" [(ngModel)]="showTestNotifications" labelPlacement="end"
+				>Zobrazit testovací notifikace</ion-checkbox
+			>
+		}
+
+		<div class="box">
+			<ion-list>
+				@for (notification of notifications; track notification.id) {
+					@if (!notification.test || showTestNotifications) {
+						<ion-item>
+							<ion-label>
+								<h6>{{ notification.message }}</h6>
+								<p>{{ formatDate(notification.createdAt) }}</p>
+							</ion-label>
+						</ion-item>
+					}
+				}
+			</ion-list>
+		</div>
+	} @else {
+		<ion-text class="ion-padding">
+			<p>Žádné úkoly zatím nebyly odeslány.</p>
+		</ion-text>
+	}
+</ion-content>

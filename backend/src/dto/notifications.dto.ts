@@ -1,5 +1,5 @@
 import { ApiPropertyOptional } from "@nestjs/swagger";
-import { IsEnum, IsOptional, IsString } from "class-validator";
+import { IsEnum, IsObject, IsOptional, IsString } from "class-validator";
 import { TableRecord } from "src/services/database.service";
 
 export class ListNotificationsQueryDto {
@@ -27,4 +27,9 @@ export class SendNotificationBodyDto {
 	@IsOptional() @IsString() buttonTitle?: string;
 	@IsOptional() @IsString() buttonLink?: string;
 	@IsOptional() @IsEnum(NotificationTestEnum) test?: NotificationTestEnum;
+}
+
+export class SendTestNotificationBodyDto {
+	@IsObject() subscription!: any; // This should be a PushSubscription object, but we use 'any' for simplicity
+	@IsString() message!: string;
 }

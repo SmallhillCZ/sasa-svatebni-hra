@@ -1,7 +1,7 @@
 import { Injectable, Logger } from "@nestjs/common";
 import { mkdirSync } from "fs";
 import { Config } from "src/config";
-import { sendNotification, setVapidDetails } from "web-push";
+import { PushSubscription, sendNotification, setVapidDetails } from "web-push";
 import { DatabaseService } from "./database.service";
 
 export interface NotificationData {
@@ -34,7 +34,7 @@ export class NotificationsService {
 		mkdirSync(config.data.dataRoot, { recursive: true });
 	}
 
-	async sendNotification(data: NotificationData, options: { test?: boolean } = {}) {
+	async sendNotificationToAll(data: NotificationData, options: { test?: boolean } = {}) {
 		let subscriptions = this.database.getSubscriptions();
 
 		let subscriptionIds: string[] = [];
@@ -79,11 +79,17 @@ export class NotificationsService {
 
 				this.logger.verbose(`Notification sent to ${pushSubscription.endpoint}`);
 			} catch (error) {
-				if (error && typeof error === "object" && "statusCode" in error && error.statusCode === 404) {
+				if (
+					error &&
+					typeof error === "object" &&
+					"statusCode" in error &&
+					[404, 410].includes(error.statusCode as number)
+				) {
 					this.logger.warn(`Subscription ${subscription.id} is no longer valid. Removing it.`);
 					await this.database.removeSubscription(subscription.id).catch(() => {});
 				} else {
 					this.logger.error("Failed to send notification", error);
+					console.error(error);
 				}
 			}
 		}
@@ -93,6 +99,24 @@ export class NotificationsService {
 			subscriptionIds,
 			test: options.test,
 		});
+	}
+
+	async sendNotificationTo(subscription: PushSubscription, message: string) {
+		const notificationPayload: { notification: NotificationPayload } = {
+			notification: {
+				icon: this.config.notifications.icon,
+				badge: this.config.notifications.badge,
+				title: this.config.app.name,
+				body: message,
+			},
+		};
+		try {
+			this.logger.debug(`Sending test notification to ${subscription.endpoint}`);
+			await sendNotification(subscription, JSON.stringify(notificationPayload));
+			this.logger.verbose(`Test notification sent to ${subscription.endpoint}`);
+		} catch (error) {
+			this.logger.error("Failed to send test notification", error);
+		}
 	}
 
 	parseSubscription(subscription: unknown) {

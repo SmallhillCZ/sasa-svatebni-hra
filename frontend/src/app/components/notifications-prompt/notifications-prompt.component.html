@@ -1,64 +1,58 @@
 @switch (subscriptionsService.status | async) {
 	@case ("ready") {
-		<p>Pokud chcete před svatbou i&nbsp;během ní vědět o&nbsp;všem jako první, zapněte si notifikace:</p>
 		<p class="mt-3">
-			<app-button (click)="subscriptionsService.savePush()">Chci notifikace!</app-button>
+			<app-button (click)="subscriptionsService.savePush()">Hrát!</app-button>
 		</p>
 	}
 
 	@case ("success") {
-		<p>✅ Jakmile budeme mít nějaké novinky, ať už před svatbou, nebo během ní, pošleme vám notifikaci!</p>
+		<div class="box">
+			<h3>Hra je připravena!</h3>
+			<p>Počkejte na první úkol!</p>
+		</div>
 
-		@if (!(installationService.installed | async) && (installationService.installAvailable | async)) {
-			<p>
-				💡 Pokud chcete mít informace o svatbě vždy po ruce, můžete si stránku
-				<a class="clickable" (click)="installationService.showPwaInstall()">nainstalovat jako aplikaci</a>.
-			</p>
-		}
+		<div class="test-notification mt-3">
+			@switch (testNoficationStatus) {
+				@case ("ready") {
+					<app-button size="small" (click)="sendTestNotification()">Poslat testovací úkol</app-button>
+				}
+				@case ("sent") {
+					<div class="box"><p>Testovací úkol odeslán</p></div>
+				}
+				@case ("error") {
+					<div class="box"><p>Nastala chyba při odesílání testovacího úkolu</p></div>
+				}
+			}
+		</div>
 	}
 
 	@case ("denied") {
-		<p>🤷‍♀️ Notifikace jste zakázali. Pokud si to rozmyslíte, můžete je zapnout v&nbsp;nastavení prohlížeče.</p>
+		<div class="box">
+			<h3>Notifikace jste zakázali</h3>
+			<p>Pokud chcete hrát, musíte je zapnout v&nbsp;nastavení prohlížeče.</p>
+		</div>
 	}
 
 	@case ("inAppBrowser") {
-		<p>
-			🤷‍♀️ Notifikace nejsou podporovány ve vestavěných prohlížečích jiných aplikací, jako je Facebook nebo Instagram.
-		</p>
-		<p>Otevřete si prosím stránku budemekopeckovi.cz v hlavním prohlížeči (Chrome, Safari atp.).</p>
+		<div class="box">
+			<p>Notifikace nejsou podporovány ve vestavěných prohlížečích jiných aplikací, jako je Facebook nebo Instagram.</p>
+			<p>Otevřete si prosím stránku danlandan.smallhill.cz v hlavním prohlížeči (Chrome, Safari atp.).</p>
+		</div>
 	}
 
 	@case ("working") {
-		<p>🔄 Nastavuji notifikace...</p>
+		<p>Nastavuji notifikace...</p>
 	}
 
 	@case ("error") {
-		@if (subscriptionsService.emailSaved | async) {
-			<p>
-				🤷‍♀️ Nastala chyba při nastavování notifikací. Máme ale váš email ({{ subscriptionsService.emailSaved | async }}),
-				takže vám dáme vědět, až přidáme detaily sem na&nbsp;stránku.
-			</p>
-		} @else {
-			<p>🤷‍♀️ Nastala chyba při nastavování notifikací, můžete to zkusit později, nebo na&nbsp;jiném zřízení.</p>
-
-			<p>Každopádně když nám zanecháte email, dáme vám aspoň vědět, až sem přidáme detaily:</p>
-
-			<app-email-form class="my-4" (submit)="saveEmail($event)"></app-email-form>
-		}
-	}
-
-	@case ("emailSaved") {
-		<p>
-			✅ Máme uložený váš email ({{ subscriptionsService.emailSaved | async }}). Dáme vám vědět, až sem přidáme detaily.
-		</p>
+		<div class="box">
+			<p>Nastala chyba při nastavování notifikací, můžete to zkusit později, nebo na&nbsp;jiném zřízení.</p>
+		</div>
 	}
 
 	@case ("notAvailable") {
-		<p>
-			Notifikace nejsou na tomto zařízení dostupné. Každopádně když nám zanecháte email, dáme vám aspoň vědět, až sem
-			přidáme důležité detaily:
-		</p>
-
-		<app-email-form class="mt-4" (submit)="saveEmail($event)"></app-email-form>
+		<div class="box">
+			<p>Hra bohužel na tomto zařízení nefunguje.</p>
+		</div>
 	}
 }

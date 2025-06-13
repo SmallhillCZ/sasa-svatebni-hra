@@ -3,9 +3,7 @@ import { ServeStaticModule } from "@nestjs/serve-static";
 import { AuthModule } from "./auth/auth.module";
 import { Config, ConfigModule } from "./config";
 import { AdminController } from "./controllers/admin.controller";
-import { EmailsController } from "./controllers/emails.controller";
 import { NotificationsController } from "./controllers/notifications.controller";
-import { RsvpController } from "./controllers/rsvp.controller";
 import { SubscriptionsController } from "./controllers/subscriptions.controller";
 import { DatabaseService } from "./services/database.service";
 import { NotificationsService } from "./services/notifications.service";
@@ -24,7 +22,7 @@ import { NotificationsService } from "./services/notifications.service";
 		}),
 		AuthModule,
 	],
-	controllers: [RsvpController, SubscriptionsController, NotificationsController, AdminController, EmailsController],
+	controllers: [SubscriptionsController, NotificationsController, AdminController],
 	providers: [NotificationsService, DatabaseService],
 })
 export class AppModule {}

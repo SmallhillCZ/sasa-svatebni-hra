@@ -7,23 +7,13 @@ import { InstallationService } from "./installation.service";
 import { LocalStorageService } from "./local-storage.service";
 import { NotificationsService } from "./notifications.service";
 
-export type SubscriptionStatus =
-	| "ready"
-	| "success"
-	| "denied"
-	| "inAppBrowser"
-	| "working"
-	| "error"
-	| "emailSaved"
-	| "notAvailable";
+export type SubscriptionStatus = "ready" | "success" | "denied" | "inAppBrowser" | "working" | "error" | "notAvailable";
 
 @Injectable({
 	providedIn: "root",
 })
 export class SubscriptionsService {
 	private readonly logger = new Logger("SubscriptionsService");
-
-	readonly emailSaved: BehaviorSubject<string | null>;
 
 	readonly pushSaved = new BehaviorSubject<boolean>(false);
 
@@ -41,7 +31,6 @@ export class SubscriptionsService {
 		private platform: Platform,
 	) {
 		this.subscriptions = new BehaviorSubject(localStorage.get("subscriptions") ?? []);
-		this.emailSaved = new BehaviorSubject(this.localStorage.get("notification-email") ?? null);
 		this.notificationsStatus = notificationsService.notificationsStatus;
 
 		notificationsService.pushSubscription
@@ -50,28 +39,6 @@ export class SubscriptionsService {
 			.subscribe((sub) => this.grantedPush(sub));
 
 		notificationsService.pushError.pipe(filter((err) => !!err)).subscribe((err) => this.status.next("error"));
-	}
-
-	async saveEmail(email: string) {
-		// reset status
-		this.status.next("working");
-
-		// optimistic update
-		this.emailSaved.next(email);
-
-		try {
-			await this.api.EmailsApi.saveEmail({ email });
-
-			// save email to localstorage so we can tell user email is saved next time
-			this.localStorage.set("notification-email", email);
-			this.status.next("emailSaved");
-		} catch (err: unknown) {
-			// rollback optimistic update
-			this.emailSaved.next(null);
-
-			this.status.next("error");
-			this.logger.error(err);
-		}
 	}
 
 	async savePush() {

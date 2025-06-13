@@ -5,7 +5,7 @@ body {
 	margin: 0;
 	padding: 0;
 
-	font-size: 15px;
+	font-size: 20px;
 }
 
 main {
@@ -13,7 +13,6 @@ main {
 	flex-direction: column;
 	min-height: 100vh;
 	min-height: 100dvh;
-	background-color: #fff;
 }
 
 @media screen and (max-width: 992px) {
@@ -26,6 +25,12 @@ main {
 		min-height: calc(100vh - 51px);
 		min-height: calc(100dvh - 51px);
 	}
+}
+
+.box {
+	background-color: rgba(255, 255, 255, 0.6);
+	border-radius: 10px;
+	padding: 1em;
 }
 
 h1 {
@@ -67,7 +72,7 @@ a.nostyle {
 p {
 	max-width: 900px;
 	opacity: 0.8;
-	text-align: justify;
+	text-align: center;
 }
 
 input {

@@ -1,5 +1,5 @@
 {
-  "name": "smallhill-svatba-frontend",
+  "name": "@smallhillcz/sasa-svatebni-hra-frontend",
   "version": "0.0.0",
   "scripts": {
     "dev": "ng serve",

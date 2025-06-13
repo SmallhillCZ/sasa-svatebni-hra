@@ -11,7 +11,6 @@ import {
 } from "ionicons/icons";
 import { InstallationService } from "./services/installation.service";
 import { LocalStorageService } from "./services/local-storage.service";
-import { RsvpService } from "./services/rsvp.service";
 
 @Component({
 	selector: "app-root",
@@ -25,7 +24,6 @@ export class AppComponent {
 
 	constructor(
 		public readonly installationService: InstallationService,
-		private rsvpService: RsvpService, // initialize rsvp,
 		private readonly alertController: AlertController,
 		private readonly platform: Platform,
 		private readonly localStorage: LocalStorageService,
@@ -45,7 +43,7 @@ export class AppComponent {
 
 		const alert = await this.alertController.create({
 			backdropDismiss: false,
-			header: "Svatba Jana & Martin",
+			header: "Svatební hra",
 			buttons: [
 				{
 					text: "Otevřít v prohlížeči",

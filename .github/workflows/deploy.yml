@@ -1,9 +1,15 @@
-name: Deploy to PRODUCTION
+name: Deploy to TEST
 
 on:
   push:
     branches:
-      - release
+      - master
+    paths:
+      - ".github/workflows/deploy-master.yml"
+      - "Dockerfile"
+      - ".dockerignore"
+      - "backend/**"
+      - "frontend/**"
 
 jobs:
   build:
@@ -29,9 +35,9 @@ jobs:
           build-args: NG_CONFIGURATION=production
           push: true
           context: .
-          tags: "ghcr.io/smallhillcz/svatba:latest"
-          cache-from: type=gha,scope=release
-          cache-to: type=gha,mode=max,scope=release
+          tags: "ghcr.io/smallhillcz/sasa-svatebni-hra"
+          cache-from: type=gha,scope=test
+          cache-to: type=gha,mode=max,scope=test
 
   deploy:
     name: Notify Watchtower

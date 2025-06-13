@@ -3,31 +3,20 @@
 		<h2 class="mt-5">Administrace</h2>
 		<div class="m-5">
 			<div class="content">
-				<h3 class="mt-5">Login</h3>
-				<form [formGroup]="passwordForm" (ngSubmit)="savePassword(); $event.stopPropagation()">
-					<ion-list>
-						<ion-item>
-							<ion-input formControlName="password" label="Heslo" labelPlacement="floating"></ion-input>
-							<ion-button expand="block" type="submit">Uložit</ion-button>
-						</ion-item>
-					</ion-list>
-				</form>
-
-				<ion-button expand="block" (click)="deletePassword()">Smazat heslo</ion-button>
-
-				<h3 class="mt-5">Poslat notifikaci</h3>
-				<form [formGroup]="notificationForm" (ngSubmit)="sendNotification(); $event.stopPropagation()">
-					<ion-list>
-						<ion-item>
-							<ion-textarea
-								formControlName="message"
-								label="Notifikace*"
-								labelPlacement="floating"
-								errorText="Text notifikace je povinný"
-								required
-							></ion-textarea>
-						</ion-item>
-						<ion-item>
+				@if (password) {
+					<h3 class="mt-5">Poslat notifikaci</h3>
+					<form [formGroup]="notificationForm" (ngSubmit)="sendNotification(); $event.stopPropagation()">
+						<ion-list>
+							<ion-item>
+								<ion-textarea
+									formControlName="message"
+									label="Notifikace*"
+									labelPlacement="floating"
+									errorText="Text notifikace je povinný"
+									required
+								></ion-textarea>
+							</ion-item>
+							<!-- <ion-item>
 							<ion-input formControlName="buttonTitle" label="Tlačítko" labelPlacement="floating"></ion-input>
 						</ion-item>
 						<ion-item>
@@ -37,16 +26,36 @@
 								label="Odkaz tlačítka"
 								labelPlacement="floating"
 							></ion-input>
-						</ion-item>
-						<!-- <ion-item>
+						</ion-item> -->
+							<!-- <ion-item>
 						<ion-input name="image" type="file" label="Obrázek" labelPlacement="floating"></ion-input>
 					</ion-item> -->
+							<ion-item>
+								<ion-checkbox formControlName="test" labelPlacement="end" slot="start"
+									>Testovací notifikace</ion-checkbox
+								>
+							</ion-item>
+						</ion-list>
+						<ion-button expand="block" type="submit" [disabled]="!notificationForm.valid">Odeslat</ion-button>
+					</form>
+
+					<div class="mt-5">
+						<ion-button expand="block" (click)="deletePassword()">Odhlásit</ion-button>
+					</div>
+
+					<div class="mt-5">
+						<ion-button expand="block" (click)="refreshBackend()">Refresh backend</ion-button>
+					</div>
+				} @else {
+					<h3 class="mt-5">Login</h3>
+
+					<form [formGroup]="passwordForm" (ngSubmit)="savePassword(); $event.stopPropagation()">
 						<ion-item>
-							<ion-checkbox formControlName="test" labelPlacement="end" slot="start">Testovací notifikace</ion-checkbox>
+							<ion-input formControlName="password" label="Heslo" labelPlacement="floating"></ion-input>
 						</ion-item>
-					</ion-list>
-					<ion-button expand="block" type="submit" [disabled]="!notificationForm.valid">Odeslat</ion-button>
-				</form>
+						<ion-button expand="block" type="submit">Přihlásit</ion-button>
+					</form>
+				}
 			</div>
 		</div>
 	</main>

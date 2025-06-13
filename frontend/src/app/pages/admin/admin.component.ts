@@ -23,6 +23,8 @@ export class AdminComponent {
 		test: new FormControl(false, { nonNullable: true, validators: [] }),
 	});
 
+	password?: string | null = this.localStorage.get("admin");
+
 	constructor(
 		private readonly localStorage: LocalStorageService,
 		private readonly sdk: SDK,
@@ -32,13 +34,15 @@ export class AdminComponent {
 	savePassword() {
 		const formData = this.passwordForm.value;
 		this.localStorage.set("admin", formData.password);
+		this.password = formData.password;
 	}
 
 	deletePassword() {
 		this.localStorage.remove("admin");
+		this.password = null;
 	}
 
-	sendNotification() {
+	async sendNotification() {
 		if (!this.notificationForm.valid) return;
 
 		const formData = this.notificationForm.getRawValue();
@@ -50,7 +54,18 @@ export class AdminComponent {
 			test: formData.test ? SDK.SendNotificationBodyDtoTestEnum.True : SDK.SendNotificationBodyDtoTestEnum.False,
 		};
 
-		this.sdk.NotificationsApi.sendNotification(data, {
+		await this.sdk.NotificationsApi.sendNotification(data, {
+			auth: {
+				username: "admin",
+				password: this.localStorage.get("admin"),
+			},
+		});
+
+		this.notificationForm.reset();
+	}
+
+	async refreshBackend() {
+		await this.sdk.AdminApi.refresh({
 			auth: {
 				username: "admin",
 				password: this.localStorage.get("admin"),

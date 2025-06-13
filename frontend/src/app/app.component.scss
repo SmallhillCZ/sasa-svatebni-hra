@@ -1,39 +1,9 @@
 @use "src/styles/fonts.scss";
 
-ion-split-pane {
-	--side-width: 250px;
-	--border: none;
-}
-nav {
-	position: fixed;
-	left: 0;
-	bottom: 0;
-
-	a {
-		@include fonts.merriweather-bold;
-		font-size: 24px;
-		text-decoration: none;
-		display: block;
-		color: inherit;
-		opacity: 0.5;
-		cursor: pointer;
-	}
-
-	a:hover,
-	a.active {
-		opacity: 1;
-	}
-}
-
-.page {
-	display: flex;
-	flex-direction: column;
-}
-
-::ng-deep .page > :not(router-outlet) {
-	min-height: 100%;
-}
-
-.padding {
-	padding: 0 10vw;
+:host {
+	background: url("/bg.webp") no-repeat center center;
+	background-size: cover;
+	display: block;
+	width: 100%;
+	height: 100%;
 }

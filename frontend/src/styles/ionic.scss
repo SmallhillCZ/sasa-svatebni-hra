@@ -13,6 +13,12 @@ html ion-app {
 	user-select: text !important;
 }
 
+ion-content {
+	--background: none;
+	--padding-start: 2em;
+	--padding-end: 2em;
+}
+
 ion-popover.popover-wide {
 	--width: calc(100vw - 2em);
 	--ion-safe-area-left: 0.75em;

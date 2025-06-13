@@ -1,6 +1,6 @@
 {
-  "name": "Svatba Jany a Martina",
-  "short_name": "Svatba Jany a Martina",
+  "name": "Svatební hra",
+  "short_name": "Svatební hra",
   "theme_color": "#ffffff",
   "background_color": "#ffffff",
   "display": "standalone",
@@ -8,9 +8,9 @@
   "start_url": "./",
   "icons": [
     {
-      "src": "favicon.png",
-      "sizes": "512x512",
-      "type": "image/png",
+      "src": "favicon.webp",
+      "sizes": "412x412",
+      "type": "image/webp",
       "purpose": "maskable any"
     }
   ]

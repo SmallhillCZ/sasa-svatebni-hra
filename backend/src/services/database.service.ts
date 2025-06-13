@@ -10,8 +10,6 @@ export type TableFields<T extends TableId> = keyof Config["airtable"]["tables"][
 
 export type TableRecord<T extends TableId> = { id: string } & { [key in TableFields<T>]?: string | string[] | boolean };
 
-export type InviteEntity = TableRecord<"invites">;
-export type RsvpEntity = TableRecord<"rsvp">;
 export type SubscriptionEntity = TableRecord<"subscriptions">;
 
 @Injectable()
@@ -23,9 +21,7 @@ export class DatabaseService {
 
 	private readonly refreshTablesInterval = 60 * 15; // 15 minutes
 
-	private readonly rsvp = this.getCachedAirtable("rsvp", { ttl: this.refreshTablesInterval });
 	private readonly subscriptions = this.getCachedAirtable("subscriptions", { ttl: this.refreshTablesInterval });
-	private readonly emails = this.getCachedAirtable("emails");
 	private readonly notifications = this.getCachedAirtable("notifications", { ttl: this.refreshTablesInterval });
 
 	constructor(private readonly config: Config) {}
@@ -36,64 +32,11 @@ export class DatabaseService {
 
 	async refreshAll() {
 		this.logger.log("Refreshing all data");
-		await Promise.all([
-			// this.invites.refresh(),
-			this.rsvp.refresh(),
-			this.subscriptions.refresh(),
-		]);
+		await Promise.all([this.subscriptions.refresh(), this.notifications.refresh()]);
 	}
 
 	getSubscriptions() {
 		return this.subscriptions.values();
-	}
-
-	getRsvp(rsvpId: string) {
-		return this.rsvp.get(rsvpId);
-	}
-
-	searchRsvp(query: { id?: string; inviteId?: string; subscriptionId?: string[] }) {
-		if (query.id && this.rsvp.has(query.id)) return this.rsvp.get(query.id);
-
-		const rsvps = [
-			query.inviteId ? this.rsvp.filter((r) => Array.isArray(r.inviteId) && r.inviteId.includes(query.inviteId!)) : [],
-			query.subscriptionId
-				? this.rsvp.filter(
-						(r) => Array.isArray(r.subscriptions) && r.subscriptions.some((s) => query.subscriptionId!.includes(s)),
-					)
-				: [],
-		].flat();
-
-		rsvps.sort((a, b) =>
-			a.createdAt && b.createdAt
-				? new Date(b.createdAt as string).getTime() - new Date(a.createdAt as string).getTime()
-				: 0,
-		);
-
-		return rsvps[0];
-	}
-
-	async createRsvp(data: Partial<Omit<RsvpEntity, "id">>) {
-		if (typeof data["inviteId"] === "string") data["inviteId"] = [data["inviteId"]];
-		data["createdAt"] = new Date().toISOString();
-
-		return await this.rsvp.create(data);
-	}
-
-	async updateRsvp(rsvpId: string, data: Partial<Omit<RsvpEntity, "id">>) {
-		const oldRsvp = this.rsvp.get(rsvpId);
-
-		if (typeof data["inviteId"] === "string") data["inviteId"] = [data["inviteId"]];
-
-		if (Array.isArray(data.subscriptions)) {
-			data.subscriptions = Array.from(
-				new Set([
-					...(Array.isArray(oldRsvp?.subscriptions) ? oldRsvp?.subscriptions : []),
-					...data.subscriptions.filter((s) => !!this.subscriptions.find((r) => r.id === s)),
-				]),
-			);
-		}
-
-		return await this.rsvp.update(rsvpId, data);
 	}
 
 	async saveSubscription(data: Partial<Omit<SubscriptionEntity, "id">>) {
@@ -119,10 +62,6 @@ export class DatabaseService {
 
 	getSubscription(subscription: Pick<SubscriptionEntity, "endpoint">) {
 		return this.subscriptions.find((r) => !!r.endpoint && r.endpoint === subscription.endpoint);
-	}
-
-	async saveEmail(email: string) {
-		await this.emails.create({ email });
 	}
 
 	async listNotifications(options: { select?: (keyof TableRecord<"notifications">)[]; includeTest?: boolean } = {}) {

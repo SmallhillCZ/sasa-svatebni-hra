@@ -7,28 +7,24 @@ import { SDK } from "src/sdk";
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { ButtonComponent } from "./components/button/button.component";
-import { EmailFormComponent } from "./components/email-form/email-form.component";
 import { IosInstallPromptComponent } from "./components/ios-install-prompt/ios-install-prompt.component";
-import { MarkComponent } from "./components/mark/mark.component";
 import { NotificationsPromptComponent } from "./components/notifications-prompt/notifications-prompt.component";
 import { AdminComponent } from "./pages/admin/admin.component";
-import { InfoComponent } from "./pages/info/info.component";
-import { NotificationsComponent } from "./pages/notifications/notifications.component";
-import { RsvpComponent } from "./pages/rsvp/rsvp.component";
+import { HelpComponent } from "./pages/help/help.component";
+import { HistoryComponent } from "./pages/history/history.component";
+import { HomeComponent } from "./pages/home/home.component";
 import { ConfigService } from "./services/config.service";
 
 @NgModule({
 	declarations: [
 		AppComponent,
-		MarkComponent,
 		ButtonComponent,
-		EmailFormComponent,
 		IosInstallPromptComponent,
 		NotificationsPromptComponent,
-		RsvpComponent,
-		InfoComponent,
-		NotificationsComponent,
 		AdminComponent,
+		HelpComponent,
+		HistoryComponent,
+		HomeComponent,
 	],
 	imports: [
 		AppRoutingModule,

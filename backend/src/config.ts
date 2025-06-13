@@ -52,33 +52,8 @@ const notifications = {
 
 const airtable = {
 	apiKey: process.env.AIRTABLE_API_KEY,
-	baseId: "appShvxODFwWugM8a",
+	baseId: "app09hDfAelsPUFMb",
 	tables: {
-		invites: {
-			id: "tblGf9TAjjxbDPctn",
-			fields: {
-				nickname: "fldATcnb2yonMrw9A",
-				maybe: "fldrXa09BEviBymDx",
-				group: "fldowrPdb4wNxhKhE",
-				firstName: "fld4UoKsPsDe8buqm",
-				lastName: "fldktHS5aEOHdUPG4",
-				maidenName: "fldzg6JHTPCGl5uXi",
-				partner: "fldd7VZXlDOg2PDE0",
-				rsvp: "fldEkbjxHdZMbnmlu",
-				inviteUrl: "fldyr5iChepWU1Ys6",
-			},
-		},
-		rsvp: {
-			id: "tblh7ABReUAlgrz0G",
-			fields: {
-				name: "fldNdAXV3mCZmeltz",
-				inviteId: "fldnaKydVPrUtgreQ",
-				subscriptions: "fldgjda5NoxqDLY7g",
-				createdAt: "fldVlx9fNicNNcI8S",
-				domain: "fldX7vfc6nvdcZ9yb",
-				userAgent: "fldqZjZw33SU0Pqqb",
-			},
-		},
 		subscriptions: {
 			id: "tblAeAJohlWTDjdhi",
 			fields: {
@@ -88,12 +63,6 @@ const airtable = {
 				domain: "fldOQpzO3VPJquD1i",
 				userAgent: "fldVj46PoBOe0A24i",
 				test: "fldXguKeqKfN60OKg",
-			},
-		},
-		emails: {
-			id: "tblG3oSRtPyYNfbiV",
-			fields: {
-				email: "fldplavF5Zi2JFfGq",
 			},
 		},
 		notifications: {
@@ -106,6 +75,7 @@ const airtable = {
 				test: "fldeVfGODEfkHQogG",
 				buttonTitle: "fldf74oPkN6WzEY6l",
 				buttonLink: "fldnV5Um2miMLPdeA",
+				sent: "fldMD31zzqE6aAnZi",
 			},
 		},
 	},
