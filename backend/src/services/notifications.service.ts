@@ -87,11 +87,10 @@ export class NotificationsService {
 				) {
 					this.logger.warn(`Subscription ${subscription.id} is no longer valid. Removing it.`);
 					await this.database.removeSubscription(subscription.id).catch(() => {});
-
-					this.logger.error(JSON.stringify(error));
+					console.error(error);
 				} else {
 					this.logger.error("Failed to send notification", error);
-					this.logger.error(JSON.stringify(error));
+					console.error(error);
 				}
 			}
 		}
@@ -118,6 +117,7 @@ export class NotificationsService {
 			this.logger.verbose(`Test notification sent to ${subscription.endpoint}`);
 		} catch (error) {
 			this.logger.error("Failed to send test notification", error);
+			console.error(error);
 		}
 	}
 
