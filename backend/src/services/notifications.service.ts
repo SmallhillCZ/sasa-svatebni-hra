@@ -25,6 +25,8 @@ export class NotificationsService {
 		private database: DatabaseService,
 	) {
 		this.logger.log(`VAPID subject: ${config.notifications.vapid.subject}`);
+		this.logger.log(`VAPID public key: ${config.notifications.vapid.publicKey}`);
+		this.logger.log(`VAPID private key: ${config.notifications.vapid.privateKey}`);
 		setVapidDetails(
 			config.notifications.vapid.subject,
 			config.notifications.vapid.publicKey,

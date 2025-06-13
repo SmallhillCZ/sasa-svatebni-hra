@@ -4,7 +4,6 @@ import { BehaviorSubject, distinctUntilKeyChanged, filter } from "rxjs";
 import { Logger } from "src/logger";
 import { SDK } from "src/sdk";
 import { InstallationService } from "./installation.service";
-import { LocalStorageService } from "./local-storage.service";
 import { NotificationsService } from "./notifications.service";
 
 export type SubscriptionStatus = "ready" | "success" | "denied" | "inAppBrowser" | "working" | "error" | "notAvailable";
@@ -21,16 +20,12 @@ export class SubscriptionsService {
 
 	readonly status = new BehaviorSubject<SubscriptionStatus>("ready");
 
-	readonly subscriptions: BehaviorSubject<string[]>;
-
 	constructor(
 		private readonly notificationsService: NotificationsService,
-		private readonly localStorage: LocalStorageService,
 		private readonly installationService: InstallationService,
 		private readonly api: SDK,
 		private platform: Platform,
 	) {
-		this.subscriptions = new BehaviorSubject(localStorage.get("subscriptions") ?? []);
 		this.notificationsStatus = notificationsService.notificationsStatus;
 
 		notificationsService.pushSubscription
@@ -83,14 +78,9 @@ export class SubscriptionsService {
 
 			const subscriptionData = pushSubscription.toJSON() as any as SDK.PushSubscriptionDto;
 
-			const subscription = await this.api.SubscriptionsApi.saveSubscription(subscriptionData).then((res) => res.data);
-
-			const subscriptions = Array.from(new Set([...this.subscriptions.value, subscription.id]));
-
-			this.localStorage.set("subscriptions", subscriptions);
+			await this.api.SubscriptionsApi.saveSubscription(subscriptionData).then((res) => res.data);
 
 			this.pushSaved.next(true);
-			this.subscriptions.next(subscriptions);
 			this.status.next("success");
 		} catch (err: unknown) {
 			this.status.next("error");
