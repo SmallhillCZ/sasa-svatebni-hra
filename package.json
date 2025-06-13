@@ -1,0 +1,16 @@
+{
+  "name": "smallhill-svatba",
+  "author": {
+    "name": "Martin Kopeček",
+    "email": "martin.kopecek@smallhill.cz"
+  },
+  "scripts": {
+    "dev": "concurrently -k -n FE,BE --prefix-colors green,yellow \"npm run dev:frontend\" \"npm run dev:backend\"",
+    "dev:backend": "cd backend && npm run dev",
+    "dev:frontend": "cd frontend && npm run dev",
+    "release": "git switch master && git push && git switch release && git merge master --ff-only && git push --follow-tags && git switch master"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.0"
+  }
+}

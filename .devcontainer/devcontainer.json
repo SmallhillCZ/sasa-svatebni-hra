@@ -1,0 +1,27 @@
+{
+	"$schema": "https://raw.githubusercontent.com/devcontainers/spec/main/schemas/devContainer.schema.json",
+	"name": "Svatba Development Container",
+	"dockerComposeFile": "docker-compose.yml",
+	"service": "devcontainer",
+	"workspaceFolder": "/workspaces",
+	"features": {
+		"ghcr.io/devcontainers/features/java:1": {},
+		// "ghcr.io/devcontainers/features/docker-in-docker:2": {}
+	},
+	"forwardPorts": [
+		3000 // backends
+        // 4200 // angular
+		// 5173 // vite
+	],
+	"postCreateCommand": "./.devcontainer/post-create.sh",
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				// prettier
+				"esbenp.prettier-vscode"
+				// angular language service
+				// "angular.ng-template"
+			]
+		}
+	}
+}

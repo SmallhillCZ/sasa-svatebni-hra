@@ -1,0 +1,49 @@
+@import "node_modules/@ionic/angular/css/core.css";
+@import "node_modules/@ionic/angular/css/normalize.css";
+@import "node_modules/@ionic/angular/css/structure.css";
+// @import "node_modules/@ionic/angular/css/typography.css";
+@import "node_modules/@ionic/angular/css/display.css";
+@import "node_modules/@ionic/angular/css/padding.css";
+@import "node_modules/@ionic/angular/css/float-elements.css";
+@import "node_modules/@ionic/angular/css/text-alignment.css";
+@import "node_modules/@ionic/angular/css/text-transformation.css";
+@import "node_modules/@ionic/angular/css/flex-utils.css";
+
+html ion-app {
+	user-select: text !important;
+}
+
+ion-popover.popover-wide {
+	--width: calc(100vw - 2em);
+	--ion-safe-area-left: 0.75em;
+}
+
+ion-header {
+	box-shadow: none !important;
+	border-bottom: 1px solid var(--ion-color-light);
+}
+
+ion-footer {
+	box-shadow: none !important;
+	border-top: 1px solid var(--ion-color-light);
+}
+ion-tab-bar {
+	--ion-tab-bar-background: #fff;
+}
+
+ion-backdrop {
+	backdrop-filter: blur(6px);
+	--backdrop-opacity: 1;
+	background: none;
+}
+
+/**
+ * Ionic Dark Theme
+ * -----------------------------------------------------
+ * For more info, please see:
+ * https://ionicframework.com/docs/theming/dark-mode
+ */
+
+/* @import "@ionic/angular/css/palettes/dark.always.css"; */
+/* @import "@ionic/angular/css/palettes/dark.class.css"; */
+// @import "@ionic/angular/css/palettes/dark.system.css";

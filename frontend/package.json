@@ -1,0 +1,45 @@
+{
+  "name": "smallhill-svatba-frontend",
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "ng serve",
+    "build": "ng build",
+    "test": "ng test",
+    "build:sdk": "openapi-sdk -i http://localhost:3000/api-json -o src/sdk"
+  },
+  "private": true,
+  "dependencies": {
+    "@angular/animations": "^19.0.0",
+    "@angular/common": "^19.0.0",
+    "@angular/compiler": "^19.0.0",
+    "@angular/core": "^19.0.0",
+    "@angular/forms": "^19.0.1",
+    "@angular/platform-browser": "^19.0.0",
+    "@angular/platform-browser-dynamic": "^19.0.0",
+    "@angular/router": "^19.0.0",
+    "@angular/service-worker": "^19.0.0",
+    "@ionic/angular": "^8.4.1",
+    "@ngneat/until-destroy": "^10.0.0",
+    "axios": "^1.7.8",
+    "class-validator": "^0.14.1",
+    "rxjs": "~7.8.0",
+    "tslib": "^2.3.0",
+    "zone.js": "~0.15.0"
+  },
+  "devDependencies": {
+    "@angular-devkit/build-angular": "^19.0.2",
+    "@angular/cli": "^19.0.2",
+    "@angular/compiler-cli": "^19.0.0",
+    "@ionic/angular-toolkit": "latest",
+    "@smallhillcz/openapi-sdk": "^2.1.0",
+    "@types/jasmine": "~5.1.0",
+    "jasmine-core": "~5.4.0",
+    "karma": "~6.4.0",
+    "karma-chrome-launcher": "~3.2.0",
+    "karma-coverage": "~2.2.0",
+    "karma-jasmine": "~5.1.0",
+    "karma-jasmine-html-reporter": "~2.1.0",
+    "prettier": "^3.4.1",
+    "typescript": "~5.6.2"
+  }
+}

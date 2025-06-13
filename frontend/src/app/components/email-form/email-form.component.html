@@ -1,0 +1,8 @@
+<form (ngSubmit)="onSubmit(); $event.stopPropagation()" [formGroup]="form">
+	<div>
+		<input formControlName="email" placeholder="jméno@doména.cz" required />
+	</div>
+	<div class="mt-3">
+		<app-button type="submit" size="small">Nastavit email</app-button>
+	</div>
+</form>

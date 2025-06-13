@@ -1,0 +1,18 @@
+<main>
+	<div class="heading">
+		<h2 class="mt-5">Répondez s'il vous plaît</h2>
+		<div *ngIf="loading" class="loading mt-3">Načítám formulář&hellip;</div>
+	</div>
+	<div class="form">
+		<iframe
+			*ngIf="url"
+			class="airtable-embed"
+			[src]="url"
+			frameborder="0"
+			onmousewheel=""
+			style="background: transparent"
+			seamless
+		>
+		</iframe>
+	</div>
+</main>

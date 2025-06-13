@@ -1,0 +1,79 @@
+@use "src/styles/fonts.scss";
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+
+	font-size: 15px;
+}
+
+main {
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+	min-height: 100dvh;
+	background-color: #fff;
+}
+
+@media screen and (max-width: 992px) {
+	html.ios main {
+		min-height: calc(100vh - 57px);
+		min-height: calc(100dvh - 57px);
+	}
+
+	html.md main {
+		min-height: calc(100vh - 51px);
+		min-height: calc(100dvh - 51px);
+	}
+}
+
+h1 {
+	@include fonts.parisienne;
+	position: relative;
+	user-select: none;
+}
+
+h2:not(ion-alert h2) {
+	font-size: 48px;
+	@include fonts.parisienne;
+	position: relative;
+	user-select: none;
+	text-align: center;
+}
+
+h3 {
+	@include fonts.merriweather-bold;
+	font-size: 20px;
+}
+
+h4 {
+	font-size: 15px;
+	opacity: 0.8;
+}
+
+a[href]:not(.nostyle),
+a.clickable:not(.nostyle) {
+	text-decoration: underline;
+	color: rgb(68, 96, 116);
+	cursor: pointer;
+}
+
+a.nostyle {
+	text-decoration: none;
+	color: inherit;
+}
+
+p {
+	max-width: 900px;
+	opacity: 0.8;
+	text-align: justify;
+}
+
+input {
+	border-width: 0 0 2px 0;
+}
+
+.selectable {
+	user-select: initial;
+}
