@@ -10,6 +10,13 @@
 							<ion-label>
 								<h6>{{ notification.message }}</h6>
 								<p>{{ formatDate(notification.createdAt) }}</p>
+								@if (notification.buttonTitle && notification.buttonLink) {
+									<p>
+										<ion-button [href]="notification.buttonLink" [fill]="'outline'" color="dark">
+											{{ notification.buttonTitle }}
+										</ion-button>
+									</p>
+								}
 							</ion-label>
 						</ion-item>
 					}
